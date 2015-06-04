@@ -1,0 +1,15 @@
+{% ckan_extends %}
+
+{% block scripts %}
+  {{ super() }}
+  {% resource 'extlink/extlink.css' %}
+{% endblock %}
+
+
+{% block styles %}
+  {{ super() }}
+  <script>
+      var white_domains = ['datagov.gov', 'reisys.com'];
+  </script>
+  {% resource 'extlink/extlink.js' %}
+{% endblock %}
