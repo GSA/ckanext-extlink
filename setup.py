@@ -6,7 +6,7 @@ version = '0.1'
 setup(
 	name='ckanext-extlink',
 	version=version,
-	description="Differentiate external links by different look and behavivor",
+	description="Make user aware of external links by giving them different look and behavivor",
 	long_description="""\
 	""",
 	classifiers=[], # Get strings from http://pypi.python.org/pypi?%3Aaction=list_classifiers
@@ -27,6 +27,6 @@ setup(
         [ckan.plugins]
 	# Add plugins here, eg
 	# myplugin=ckanext.extlink:PluginClass
-        extlink=ckanext.extlink.plugin:ExtLinkPlugin
+    extlink=ckanext.extlink.plugin:ExtLinkPlugin
 	""",
 )

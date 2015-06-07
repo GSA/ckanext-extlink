@@ -1,15 +1,16 @@
 {% ckan_extends %}
 
-{% block scripts %}
+{% block styles %}
   {{ super() }}
   {% resource 'extlink/extlink.css' %}
 {% endblock %}
 
 
-{% block styles %}
+{% block scripts %}
   {{ super() }}
   <script>
-      var white_domains = ['datagov.gov', 'reisys.com'];
+      var extlink_white_list = '{{ h.get_extlink_data()['white-list'] }}'.split(',');
+      var extlink_popup_message = '{{ h.get_extlink_data()['message'] }}';
   </script>
   {% resource 'extlink/extlink.js' %}
 {% endblock %}
