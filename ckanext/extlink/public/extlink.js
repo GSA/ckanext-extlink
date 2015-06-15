@@ -20,7 +20,11 @@ $("a:not([href^='http://'])").addClass("non_ext");
 });
 jQuery( document ).ready(function() {
 jQuery('a').each(function(){
-
+var ext_msg= extlink_popup_message;
+    if (ext_msg =='')
+    {
+        ext_msg=='This link will direct you to an external website that may have different content and privacy policies from catalog.Data.gov.'
+    }
 
             if(!jQuery(this).hasClass("non_ext")){
 
@@ -33,3 +37,8 @@ jQuery('a').each(function(){
 
 
  });
+$(function() {
+
+    $( '.ext_link' ).tooltip();
+
+});
