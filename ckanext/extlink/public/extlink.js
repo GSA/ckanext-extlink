@@ -21,16 +21,16 @@ $("a:not([href^='http://'])").addClass("non_ext");
 jQuery( document ).ready(function() {
 jQuery('a').each(function(){
 var ext_msg= extlink_popup_message;
-    if (ext_msg =='')
-    {
-        ext_msg=='This link will direct you to an external website that may have different content and privacy policies from catalog.Data.gov.'
+    if(ext_msg == "" || ext_msg == " " || ext_msg.length == 0 ){
+
+        ext_msg='This link will direct you to an external website that may have different content and privacy policies from catalog.Data.gov.'
     }
 
             if(!jQuery(this).hasClass("non_ext")){
 
             jQuery(this).addClass("ext_link");
             if (!jQuery(this).attr('title')) {
-            jQuery(this).attr('title', 'This link will direct you to an external website that may have different content and privacy policies from catalog.Data.gov.')
+            jQuery(this).attr('title', ext_msg);
                 }
 }
 });
