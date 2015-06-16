@@ -23,7 +23,7 @@ jQuery('a').each(function(){
 var ext_msg= extlink_popup_message;
     if(ext_msg == "" || ext_msg == " " || ext_msg.length == 0 ){
 
-        ext_msg='This link will direct you to an external website that may have different content and privacy policies from catalog.Data.gov.'
+        ext_msg='This link will direct you to an external website that may have different content and privacy policies from Data.gov.'
     }
 
             if(!jQuery(this).hasClass("non_ext")){
