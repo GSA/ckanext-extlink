@@ -3,7 +3,7 @@ var href;
 var urls = extlink_white_list;
 
 var $a = $('a');
-   $a.each(function(){
+   $a.each(function(i){
         return function(){
           for (href = 0; href < urls.length; href++) {
               if (this.href.indexOf(urls[href]) != -1) {
@@ -15,7 +15,7 @@ var $a = $('a');
           }
 
         }
-    });
+    }(i));
 $("a:not([href^='http://'])").addClass("non_ext");
 });
 jQuery( document ).ready(function() {
