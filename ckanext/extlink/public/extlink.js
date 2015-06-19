@@ -3,7 +3,7 @@ var href;
 var urls = extlink_white_list;
 
 var $a = $('a');
-   $a.each((function(){
+   $a.each(function(){
         return function(){
           for (href = 0; href < urls.length; href++) {
               if (this.href.indexOf(urls[href]) != -1) {
