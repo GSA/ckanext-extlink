@@ -1,7 +1,7 @@
 jQuery(function($){
 var href;
 var urls = extlink_white_list;
-
+var i;
 var $a = $('a');
    $a.each(function(i){
         return function(){
