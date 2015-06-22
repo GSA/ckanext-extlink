@@ -25,7 +25,11 @@ var ext_msg= extlink_popup_message;
 
         ext_msg='This link will direct you to an external website that may have different content and privacy policies from Data.gov.'
     }
-
+if(jQuery(this).hasClass("ext_link")){
+  if (!jQuery(this).attr('title')) {
+            jQuery(this).attr('title', ext_msg);
+                }
+}
             if(!jQuery(this).hasClass("non_ext")){
 
             jQuery(this).addClass("ext_link");
