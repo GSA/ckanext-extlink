@@ -6,6 +6,7 @@ import ckan.model as model
 
 import ckanext.extlink.model as extlinkmodel
 
+MSG = 'Disclaimer: This link will take you to an external website.'
 
 class ExtLinkPlugin(p.SingletonPlugin):
     ''' A plugin to detect external links and add to them css and js.
@@ -38,12 +39,12 @@ class ExtLinkPlugin(p.SingletonPlugin):
     def get_extlink_data(self):
         entry = model.Session.query(extlinkmodel.ExtLink).first()
         white_list = ''
-        message = ''
+        message = MSG
         if entry and entry.domains:
             # delimiters will be merged and replaced with single comma
             rx = re.compile('[ ,\n\r]+')
             white_list = rx.sub(',', entry.domains)
-        if entry and entry.message:
+        if entry and entry.message.strip():
             message = entry.message
 
         return {'white-list': white_list, 'message': message}
