@@ -1,3 +1,5 @@
+/* function to check white list domain */
+
 jQuery(function($){
     var href;
     var urls = extlink_white_list;
@@ -6,17 +8,24 @@ jQuery(function($){
     $a.each(function(i){
         return function(){
             for (href = 0; href < urls.length; href++) {
-                if (this.href.indexOf(urls[href]) != -1) {
+
+                var domains = this.href.split( '/' );
+                var d = domains[2];
+
+                if (d == null || d == ""){
 
                     $( this ).addClass( "non_ext" );
-
                 }
+                else if(d.indexOf(urls[href]) != -1) {
+                    // console.log(("twitter.com").indexOf(urls[href]));
 
+                    $( this ).addClass( "non_ext" );
+                }
             }
-
         }
     }(i));
-    $("a:not([href^='http://'])").addClass("non_ext");
+    $("a:not([href^='http://']):not([href^='https://'])").addClass("non_ext");
+
 });
 jQuery( document ).ready(function() {
     jQuery('a').each(function(){
