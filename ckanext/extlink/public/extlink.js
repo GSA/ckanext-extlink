@@ -1,59 +1,42 @@
-/* function to check white list domain */
+/* add tooltips to external links */
 
 jQuery(function($){
+    var ext_msg = extlink_popup_message;
     var urls = extlink_white_list;
     // add self domain to the array
-    urls.push(window.location.host)
+    urls.push(window.location.host);
+
     $('a').each(function(){
-        if (!this.host) { // exit if it is a fake a without href
-            $( this ).addClass( "non_ext" );
+        if (!this.host) {
+            // a fake a without href, nothing to do
             return;
         };
+
+        // go thru each white listed domain to match this.host
         for (i = 0; i < urls.length; i++) {
-            if (!urls[i]) continue;
-            parts = this.host.split(urls[i])
-            // add non_ext...
+            url = urls[i]
+            if (!url) continue;
+
+            parts = this.host.split(url);
             if (
                 // ...if endswith white listed url
-                this.host.indexOf(urls[i],this.host.length - urls[i].length) !== -1
+                this.host.indexOf(url, this.host.length - url.length) !== -1
                 &&
                 (
-                // ...white listed cd.com should not cover www.abcd.com
-                    urls[i].indexOf('.') === 0
+                // ...www.abcd.com endswith cd.com but not to be white listed
+                    url.indexOf('.') === 0 // .cd.com starting with '.' is ok
                     ||
-                    urls[i] == this.host
+                    url == this.host // cd.com == cd.com is ok
                     ||
-                    parts[parts.length - 2].slice(-1) == '.'
+                    parts[parts.length - 2].slice(-1) == '.' // ab.cd.com is ok
                 )
             ) {
-                $( this ).addClass( "non_ext" );
-                break;
-            }
-        }
+                // white list matched. nothing to do
+                return
+            };
+        };
+
+        // external link confirmed
+        $(this).attr('title', ext_msg).tooltip();
     });
-});
-
-jQuery( document ).ready(function() {
-    jQuery('a').each(function(){
-        var ext_msg= extlink_popup_message;
-        if(jQuery(this).hasClass("ext_link")){
-            if (!jQuery(this).attr('title')) {
-                jQuery(this).attr('title', ext_msg);
-            }
-        }
-
-        if(!jQuery(this).hasClass("non_ext")){
-
-            jQuery(this).addClass("ext_link");
-            if (!jQuery(this).attr('title')) {
-                jQuery(this).attr('title', ext_msg);
-            }
-        }
-    });
-});
-
-jQuery(function() {
-
-    jQuery( '.ext_link' ).tooltip();
-
 });

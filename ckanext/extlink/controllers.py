@@ -10,6 +10,7 @@ import ckan.lib.helpers as h
 import ckan.new_authz
 
 import ckanext.extlink.model as extlinkmodel
+from ckanext.extlink.plugin import MSG as msg_default
 
 c = base.c
 
@@ -42,5 +43,6 @@ class ExtLinkController(BaseController):
         c.extlinkdata = {
             'white-list': entry.domains,
             'message': entry.message,
+            'placeholder': msg_default,
         }
         return p.toolkit.render("form.html")

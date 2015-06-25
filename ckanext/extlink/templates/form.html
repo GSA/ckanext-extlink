@@ -4,7 +4,7 @@
 {% block subtitle %}{{ _('External Links') }}{% endblock %}
 
 {% block breadcrumb_content %}
-  <li class="active">{% link_for _('External Links'), controller='extlink', action='form' %}</li>
+  <li class="active">{% link_for _('External Links'), controller='ckanext.extlink.controllers:ExtLinkController', action='form' %}</li>
 {% endblock %}
 
 {% block primary_content %}
@@ -20,7 +20,7 @@
         </span>
         {% endcall %}
 
-        {{ form.textarea('message', id='field-message', label=_('Pop-up message'), value=c.extlinkdata['message']) }}
+        {{ form.textarea('message', id='field-message', label=_('Pop-up message'), value=c.extlinkdata['message'], placeholder=c.extlinkdata['placeholder']) }}
 
         <p class="form-actions">
           <input id="save" name="save" value="Save" type="submit" class="btn btn-primary pull-right">
