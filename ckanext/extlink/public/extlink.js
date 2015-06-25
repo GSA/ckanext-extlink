@@ -14,7 +14,7 @@ jQuery(function($){
 
         // go thru each white listed domain to match this.host
         for (i = 0; i < urls.length; i++) {
-            url = urls[i]
+            url = urls[i].toLowerCase();
             if (!url) continue;
 
             parts = this.host.split(url);
