@@ -6,33 +6,45 @@ jQuery(function($){
     // add self domain to the array
     urls.push(window.location.host);
 
-    $('a').each(function(){
-        if (!this.host) {
+    // function to return true if link matches whitelist url
+    var check_whitelist = function(link, url) {
+        var parts = link.split(url);
+        var result = false;
+        if (
+            // link ends with url
+            link.indexOf(url, link.length - url.length) !== -1
+            &&
+            (
+            // exclude scenario where www.abcd.com ends with cd.com
+                url.indexOf('.') === 0 // url starts with '.' is ok. (.cd.com)
+                ||
+                url == link // cd.com == cd.com is ok
+                ||
+                parts[parts.length - 2].slice(-1) == '.' // ab.cd.com is ok
+            )
+        ) {
+            result = true;
+        }
+
+        return result;
+    };
+
+    // go thru each link on the page, add disclaimer if it is external link
+    $('a').each(function() {
+        var link = this.host
+        if (!link) {
             // a fake a without href, nothing to do
             return;
         };
 
         // go thru each white listed domain to match this.host
         for (i = 0; i < urls.length; i++) {
-            url = urls[i].toLowerCase();
+            var url = urls[i].toLowerCase();
             if (!url) continue;
 
-            parts = this.host.split(url);
-            if (
-                // ...if endswith white listed url
-                this.host.indexOf(url, this.host.length - url.length) !== -1
-                &&
-                (
-                // ...www.abcd.com endswith cd.com but not to be white listed
-                    url.indexOf('.') === 0 // .cd.com starting with '.' is ok
-                    ||
-                    url == this.host // cd.com == cd.com is ok
-                    ||
-                    parts[parts.length - 2].slice(-1) == '.' // ab.cd.com is ok
-                )
-            ) {
-                // white list matched. nothing to do
-                return
+            var result = check_whitelist(link, url)
+            if (result) {
+                return;
             };
         };
 
