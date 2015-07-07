@@ -4,7 +4,7 @@ jQuery(function($){
     var ext_msg = extlink_popup_message;
     var urls = extlink_white_list;
     // add self domain to the array
-    urls.push(window.location.host);
+    urls.push(window.location.hostname);
 
     // function to return true if link matches whitelist url
     var check_whitelist = function(link, url) {
@@ -31,13 +31,18 @@ jQuery(function($){
 
     // go thru each link on the page, add disclaimer if it is external link
     $('a').each(function() {
-        var link = this.host
+        try { //IE might give nonsense error on invalid hostname
+            var link = this.hostname;
+        }
+        catch(err) {
+            var link = '';
+        }
         if (!link) {
-            // a fake a without href, nothing to do
+            // a fake a without href, or invalid. nothing to do
             return;
         };
 
-        // go thru each white listed domain to match this.host
+        // go thru each white listed domain to match this.hostname
         for (i = 0; i < urls.length; i++) {
             var url = urls[i].toLowerCase();
             if (!url) continue;
