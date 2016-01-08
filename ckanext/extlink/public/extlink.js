@@ -54,6 +54,14 @@ jQuery(function($){
         };
 
         // external link confirmed
-        $(this).attr('title', ext_msg).tooltip();
+        // place tooltip at top or bottom based on it is in header or not
+        if ($(this).closest('header').length) {
+            var placement_value = 'bottom'
+        }
+        else {
+            var placement_value = 'top'
+        }
+
+        $(this).attr('title', ext_msg).tooltip({placement: placement_value});
     });
 });
